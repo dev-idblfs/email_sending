@@ -3,9 +3,21 @@ var express = require("express"),
 var ejs = require('ejs');
 var nodemailer = require('nodemailer');
 var path = require('path')
-const fs = require('fs');
+const { google } = require("googleapis");
+const OAuth2 = google.auth.OAuth2;
 
 router.get("/", function (req, res) {
+    const oauth2Client = new OAuth2(
+        "488348022368-an7viup4u2mrhdhi4885sjms98b8gvgt.apps.googleusercontent.com", // ClientID
+        "H8FmLJAPOJKasOztLaxm_mT3", // Client Secret
+        "https://developers.google.com/oauthplayground" // Redirect URL
+    );
+
+    oauth2Client.setCredentials({
+        refresh_token: "Your Refresh Token Here"
+    });
+    const accessToken = oauth2Client.getAccessToken()
+
     var response = {};
     var transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
@@ -15,9 +27,9 @@ router.get("/", function (req, res) {
         auth: {
             type: 'oauth2',
             user: 'developer.idblfs@gmail.com',
-            clientId: '488348022368-38ctso9p62pm7q1399auhg7lsl188ek9.apps.googleusercontent.com',
-            clientSecret: 'lY17MO6IItex0tgEP22WAYYK',
-            refreshToken: '1//04qxnRE04tFQnCgYIARAAGAQSNwF-L9Ircda2XPTt9W2nut9DSRjn_fGRLGdXYhBNmqI9zxyKhzkQvgPrXvffVlTAiSBkCgxneMg',
+            clientId: '488348022368-an7viup4u2mrhdhi4885sjms98b8gvgt.apps.googleusercontent.com',
+            clientSecret: 'H8FmLJAPOJKasOztLaxm_mT3',
+            refreshToken: accessToken,
         }
     });
 
