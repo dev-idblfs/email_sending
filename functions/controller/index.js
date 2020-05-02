@@ -8,11 +8,7 @@ const fs = require('fs');
 router.get("/", function (req, res) {
     var response = {};
     var transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
         service: 'gmail',
-        port: 587,
-        secure: false,
-        // service: 'gmail',
         auth: {
             type: 'oauth2',
             user: 'developer.idblfs@gmail.com',
