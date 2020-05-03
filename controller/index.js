@@ -87,67 +87,60 @@ router.get("/a", (req, res) => {
     var subject = 'NA';
     var body_html = 'BODY';
     var response = {};
-    var promice = new Promise(async (resolve, reject) => {
-        try {
-            const oauth2Client = new OAuth2(
-                "488348022368-an7viup4u2mrhdhi4885sjms98b8gvgt.apps.googleusercontent.com", // ClientID
-                "H8FmLJAPOJKasOztLaxm_mT3", // Client Secret
-                "https://developers.google.com/oauthplayground" // Redirect URL
-            );
-            oauth2Client.setCredentials({
-                refresh_token: '1//04depwKoEeBmPCgYIARAAGAQSNwF-L9IrLJibDzTlo-1k1aJ8JevFRqEU_ZBkl5qv3XWKMWOuQ-fq6tZAGxgFnF1d9TKLry7Uid0'
-            });
-            const accessToken = oauth2Client.getAccessToken()
+    try {
+        const oauth2Client = new OAuth2(
+            "488348022368-an7viup4u2mrhdhi4885sjms98b8gvgt.apps.googleusercontent.com", // ClientID
+            "H8FmLJAPOJKasOztLaxm_mT3", // Client Secret
+            "https://developers.google.com/oauthplayground" // Redirect URL
+        );
+        oauth2Client.setCredentials({
+            refresh_token: '1//04depwKoEeBmPCgYIARAAGAQSNwF-L9IrLJibDzTlo-1k1aJ8JevFRqEU_ZBkl5qv3XWKMWOuQ-fq6tZAGxgFnF1d9TKLry7Uid0'
+        });
+        const accessToken = oauth2Client.getAccessToken()
 
-            var transporter = nodemailer.createTransport({
-                host: 'smtp.gmail.com',
-                service: 'gmail',
-                port: 465,
-                secure: true,
-                auth: {
-                    type: 'oauth2',
-                    user: 'developer.idblfs@gmail.com',
-                    clientId: '488348022368-an7viup4u2mrhdhi4885sjms98b8gvgt.apps.googleusercontent.com',
-                    clientSecret: 'H8FmLJAPOJKasOztLaxm_mT3',
-                    refreshToken: '1//04depwKoEeBmPCgYIARAAGAQSNwF-L9IrLJibDzTlo-1k1aJ8JevFRqEU_ZBkl5qv3XWKMWOuQ-fq6tZAGxgFnF1d9TKLry7Uid0',
-                }
-            });
+        var transporter = nodemailer.createTransport({
+            host: 'smtp.gmail.com',
+            service: 'gmail',
+            port: 465,
+            secure: true,
+            auth: {
+                type: 'oauth2',
+                user: 'developer.idblfs@gmail.com',
+                clientId: '488348022368-an7viup4u2mrhdhi4885sjms98b8gvgt.apps.googleusercontent.com',
+                clientSecret: 'H8FmLJAPOJKasOztLaxm_mT3',
+                refreshToken: '1//04depwKoEeBmPCgYIARAAGAQSNwF-L9IrLJibDzTlo-1k1aJ8JevFRqEU_ZBkl5qv3XWKMWOuQ-fq6tZAGxgFnF1d9TKLry7Uid0',
+            }
+        });
 
-            var mailOptions = {
-                from: from,
-                to: to,
-                subject: subject,
-                html: body_html
-            };
+        var mailOptions = {
+            from: from,
+            to: to,
+            subject: subject,
+            html: body_html
+        };
 
-            result = transporter.sendMail(mailOptions, (error, info) => {
-                if (error) {
-                    console.log('send mail error', error);
-                    response.error = error;
-                    reject(response);
-                }
-                else {
-                    console.log('Email sent: ' + info.response);
-                    response.info = info;
-                    resolve(resolve);
-                    console.log('res1', response);
-                }
-            })
-            console.log('result', result)
-            console.log('res2', response);
-        } catch (error) {
-            console.log('catch', error);
-            response.catch = error;
-            resolve(response);
-            console.log('res3', response);
-            // return res.sendStatus(304).send(error);
-        }
-    });
-    promice.then((res) => {
-        res.send(res);
-    }).catch((err) => {
-        res.send(err);
-    })
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.log('send mail error', error);
+                response.error = error;
+                res.send(response);
+            }
+            else {
+                console.log('Email sent: ' + info.response);
+                response.info = info;
+                res.send(response);
+                console.log('res1', response);
+            }
+        })
+        console.log('res2', response);
+    } catch (error) {
+        console.log('catch', error);
+        response.catch = error;
+        console.log('res3', response);
+        res.send(response);
+        // return res.sendStatus(304).send(error);
+    }
+
 })
 
 module.exports = router;
