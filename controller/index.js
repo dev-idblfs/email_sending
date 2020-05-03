@@ -62,6 +62,7 @@ router.post("/", async (req, res) => {
             await transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {
                     console.log('send mail error', error);
+                    response = error;
                     return res.sendStatus(304).send(error);
                 }
                 else {
@@ -77,7 +78,7 @@ router.post("/", async (req, res) => {
         }
 
     }
-    return res.sendStatus(400).send('400');
+    res.send(response);
 })
 
 module.exports = router;
