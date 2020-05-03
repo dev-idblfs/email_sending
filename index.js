@@ -30,6 +30,8 @@ global.domain = '';
 var port = process.env.PORT || 8080;
 
 app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     domain = req.hostname;
     console.log(`https://${domain}`);
     next();
