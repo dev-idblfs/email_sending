@@ -61,7 +61,7 @@ router.post("/sendmail", async (req, res) => {
                 subject: subject,
                 html: body_html,
                 sender: sender,
-                replyTo: to,
+                replyTo: from,
                 inReplyTo: inReplyTo
             };
 
