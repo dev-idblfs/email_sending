@@ -63,18 +63,18 @@ router.post("/sendmail", async (req, res) => {
                 if (error) {
                     console.log('send mail error', error);
                     response = error;
-                    res.sendStatus(304).send(response);
+                    res.send(response);
                 }
                 else {
                     console.log('Email sent: ' + info.response);
                     response = info;
-                    res.sendStatus(200).send(response);
+                    res.send(response);
                 }
             });
         } catch (error) {
             console.log('catch', error);
             response = error;
-            res.sendStatus(304).send(response);
+            res.send(response);
         }
     }
 })
