@@ -2,7 +2,7 @@
 const express = require('express')
 const path = require('path')
 const bodyParser = require("body-parser")
-// const cors = require("cors")
+const cors = require("cors")
 const cookieParse = require('cookie-parser')
 
 // init express
@@ -12,7 +12,7 @@ var app = express()
 app.use('/public', express.static(path.join(__dirname, 'public')))
 
 // allow cross origin
-// app.use(cors());
+app.use(cors());
 
 // parse request bodies (req.body)
 app.use(express.urlencoded({ extended: true }))
@@ -25,6 +25,12 @@ app.use(bodyParser.json());
 
 app.use(cookieParse())
 
+global.domain = '';
+
+
+app.use((req, res, next) => {
+    domain = req.hostname;
+});
 app.use(require('./controller/index'));
 
 app.use((err, req, res, next) => {
@@ -39,4 +45,4 @@ app.use((req, res, next) => {
     res.status(404).send("srroy Wrong URl");
 })
 
-app.listen(8000, () => console.log(`Example app listening at http://localhost:3000`))
+app.listen(3000, () => console.log(`Example app listening at http://${global.domain}`))
