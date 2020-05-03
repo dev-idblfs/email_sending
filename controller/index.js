@@ -120,7 +120,7 @@ router.get("/a", (req, res) => {
                 html: body_html
             };
 
-            await transporter.sendMail(mailOptions, (error, info) => {
+            result = transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {
                     console.log('send mail error', error);
                     response.error = error;
@@ -133,6 +133,7 @@ router.get("/a", (req, res) => {
                     console.log('res1', response);
                 }
             })
+            console.log('result', result)
             console.log('res2', response);
         } catch (error) {
             console.log('catch', error);
