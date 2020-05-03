@@ -38,7 +38,7 @@ router.get("/", async (req, res) => {
 
         var mailOptions = {
             from: 'mr.divyanshu96@gmail.com',
-            to: 'mr.divyanshu96@gmail.com',
+            to: ['mr.divyanshu96@gmail.com','developer.idblfs@gmail.com'],
             subject: 'Sending Email using Node.js',
             html: '<h1>That was easy!<h1>'
         };
