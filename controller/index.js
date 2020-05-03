@@ -31,7 +31,7 @@ router.post("/sendmail", async (req, res) => {
             if (req.body.body_html) {
                 body_html = req.body.body_html
             }
-            const oauth2Client = await new OAuth2(
+            const oauth2Client = new OAuth2(
                 "488348022368-an7viup4u2mrhdhi4885sjms98b8gvgt.apps.googleusercontent.com", // ClientID
                 "H8FmLJAPOJKasOztLaxm_mT3", // Client Secret
                 "https://developers.google.com/oauthplayground" // Redirect URL
@@ -82,9 +82,9 @@ router.post("/sendmail", async (req, res) => {
             response = error;
             res.send(response);
         }
+    } else {
+        res.send('we dont get any informations');
     }
 })
-
-
 module.exports = router;
 
