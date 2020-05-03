@@ -14,6 +14,9 @@ router.post("/sendmail", async (req, res) => {
     var subject = '';
     var body_html = '';
     var response = {};
+    var sender = "Developer Idblfs";
+    var replyTo = "";
+    var inReplyTo = "developer.idblfs@gmail.com";
     if (Object.keys(req.body).length > 0) {
         try {
             if (req.body.from) {
@@ -33,12 +36,12 @@ router.post("/sendmail", async (req, res) => {
                 "H8FmLJAPOJKasOztLaxm_mT3", // Client Secret
                 "https://developers.google.com/oauthplayground" // Redirect URL
             );
-            await oauth2Client.setCredentials({
+            oauth2Client.setCredentials({
                 refresh_token: '1//04depwKoEeBmPCgYIARAAGAQSNwF-L9IrLJibDzTlo-1k1aJ8JevFRqEU_ZBkl5qv3XWKMWOuQ-fq6tZAGxgFnF1d9TKLry7Uid0'
             });
-            const accessToken = await oauth2Client.getAccessToken()
+            const accessToken = oauth2Client.getAccessToken()
 
-            var transporter = await nodemailer.createTransport({
+            var transporter = nodemailer.createTransport({
                 host: 'smtp.gmail.com',
                 service: 'gmail',
                 port: 465,
@@ -56,10 +59,13 @@ router.post("/sendmail", async (req, res) => {
                 from: from,
                 to: to,
                 subject: subject,
-                html: body_html
+                html: body_html,
+                sender: sender,
+                replyTo: to,
+                inReplyTo: inReplyTo
             };
 
-            await transporter.sendMail(mailOptions, (error, info) => {
+            transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {
                     console.log('send mail error', error);
                     response = error;
