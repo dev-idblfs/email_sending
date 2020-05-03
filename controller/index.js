@@ -80,7 +80,8 @@ router.post("/", async (req, res) => {
     }
     res.send(response);
 })
-router.post("/a", async (req, res) => {
+
+router.get("/a", async (req, res) => {
     var from = 'ansh';
     var to = ['anshudivv@gmail.com'];
     var subject = 'NA';
