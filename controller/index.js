@@ -81,13 +81,13 @@ router.post("/", async (req, res) => {
     res.send(response);
 })
 
-router.get("/a", async (req, res) => {
+router.get("/a", (req, res) => {
     var from = 'ansh';
     var to = ['anshudivv@gmail.com'];
     var subject = 'NA';
     var body_html = 'BODY';
     var response = {};
-    var promice = new Promise((resolve, reject) => {
+    var promice = new Promise(async (resolve, reject) => {
         try {
             const oauth2Client = new OAuth2(
                 "488348022368-an7viup4u2mrhdhi4885sjms98b8gvgt.apps.googleusercontent.com", // ClientID
@@ -120,7 +120,7 @@ router.get("/a", async (req, res) => {
                 html: body_html
             };
 
-            transporter.sendMail(mailOptions, (error, info) => {
+            await transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {
                     console.log('send mail error', error);
                     response.error = error;
