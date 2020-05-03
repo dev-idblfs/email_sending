@@ -8,7 +8,7 @@ const OAuth2 = google.auth.OAuth2;
 
 
 
-router.post("/send", async (req, res) => {
+router.post("/sendmail", async (req, res) => {
     var from = '';
     var to = [];
     var subject = '';
