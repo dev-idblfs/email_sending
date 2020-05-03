@@ -129,11 +129,14 @@ router.get("/a", async (req, res) => {
                 console.log('Email sent: ' + info.response);
                 response.info = info;
                 // return res.sendStatus(200).send(info);
+                console.log('res1', response);
             }
         });
+        console.log('res2', response);
     } catch (error) {
         console.log('catch', error);
         response.catch = error;
+        console.log('res2', response);
         // return res.sendStatus(304).send(error);
     }
     res.send(response);
