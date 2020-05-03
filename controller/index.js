@@ -40,7 +40,7 @@ router.get("/", async (req, res) => {
             from: 'mr.divyanshu96@gmail.com',
             to: 'mr.divyanshu96@gmail.com',
             subject: 'Sending Email using Node.js',
-            text: 'That was easy!'
+            html: '<h1>That was easy!<h1>'
         };
 
         await transporter.sendMail(mailOptions, function (error, info) {
