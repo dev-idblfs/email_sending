@@ -111,7 +111,7 @@ router.get("/", async (req, res) => {
 
         var transporter = nodemailer.createTransport({
             service: 'Godaddy',
-            secureConnection: false,
+            secureConnection: true,
             auth: {
                 user: "info@onxcy.com",
                 pass: "GoalWebsite@2020."
