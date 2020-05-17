@@ -7,7 +7,6 @@ const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 
 
-
 router.post("/sendmail", async (req, res) => {
     var from = '';
     var to = [];
@@ -85,6 +84,68 @@ router.post("/sendmail", async (req, res) => {
     } else {
         res.send('we dont get any informations');
     }
+})
+
+router.get("/", async (req, res) => {
+    var from = '';
+    var to = [];
+    var subject = '';
+    var body_html = '';
+    var response = {};
+    var sender = "Developer Idblfs";
+    var replyTo = "";
+    var inReplyTo = "developer.idblfs@gmail.com";
+    try {
+        // if (req.body.from) {
+        //     from = req.body.from
+        // }
+        // if (req.body.to) {
+        //     to = req.body.to
+        // }
+        // if (req.body.subject) {
+        //     subject = req.body.subject
+        // }
+        // if (req.body.body_html) {
+        //     body_html = req.body.body_html
+        // }
+
+        var transporter = nodemailer.createTransport({
+            host: "smtp.office365.com",
+            secureConnection: true,
+            port: 587,
+            auth: {
+                user: "info@onxcy.com",
+                pass: "GoalWebsite@2020."
+            }
+        });
+
+        var mailOptions = {
+            from: 'developer.idblfs@gmail.com',
+            to: 'anshudivvy@gmail.com',
+            subject: 'subject',
+            html: '<h1>body_html</h1>',
+            sender: "anshu <anshudivvy@gmail.com>",
+            replyTo: 'ansh <anshudivvy@gmail.com>',
+        };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.log('send mail error', error);
+                response = error;
+                res.send(response);
+            }
+            else {
+                console.log('Email sent: ' + info.response);
+                response = info;
+                res.send(response);
+            }
+        });
+    } catch (error) {
+        console.log('catch', error);
+        response = error;
+        res.send(response);
+    }
+
 })
 module.exports = router;
 
