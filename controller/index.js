@@ -110,13 +110,17 @@ router.get("/", async (req, res) => {
         // }
 
         var transporter = nodemailer.createTransport({
-            host: "smtp.office365.com",
-            secureConnection: true,
-            port: 587,
+            service: 'Godaddy',
+            secureConnection: false,
             auth: {
                 user: "info@onxcy.com",
                 pass: "GoalWebsite@2020."
             }
+            //             Server Name:smtpout.secureserver.net
+            // Port:465
+            // User Name:info@onxcy.com
+            // Connection:SSL/TLS
+
         });
 
         var mailOptions = {
