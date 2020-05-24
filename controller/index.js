@@ -113,7 +113,7 @@ router.get("/", async (req, res) => {
             service: 'Godaddy',
             secureConnection: true,
             auth: {
-                user: "info@onxcy.com",
+                user: "hr@onxcy.com",
                 pass: "GoalWebsite@2020."
             }
             //             Server Name:smtpout.secureserver.net
@@ -124,12 +124,12 @@ router.get("/", async (req, res) => {
         });
 
         var mailOptions = {
-            from: 'info@onxcy.com',
-            to: ['anshudivvy@gmail.com','garg2509@gmail.com'],
+            from: 'Onxcy <hr@onxcy.com>',
+            to: ['anshudivvy@gmail.com', 'garg2509@gmail.com'],
             subject: 'subject',
             html: '<h1>body_html</h1>',
-            sender: "anshu <anshudivvy@gmail.com>",
-            replyTo: 'ansh <anshudivvy@gmail.com>',
+            sender: "anshu <hr@onxcy.com>",
+            replyTo: 'Onxcy <hr@onxcy.com>',
         };
 
         transporter.sendMail(mailOptions, (error, info) => {
