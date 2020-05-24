@@ -124,8 +124,8 @@ router.get("/", async (req, res) => {
         });
 
         var mailOptions = {
-            from: 'developer.idblfs@gmail.com',
-            to: 'anshudivvy@gmail.com',
+            from: 'info@onxcy.com',
+            to: ['anshudivvy@gmail.com','garg2509@gmail.com'],
             subject: 'subject',
             html: '<h1>body_html</h1>',
             sender: "anshu <anshudivvy@gmail.com>",
