@@ -116,10 +116,6 @@ router.get("/", async (req, res) => {
                 user: "hr@onxcy.com",
                 pass: "GoalWebsite@2020."
             }
-            //             Server Name:smtpout.secureserver.net
-            // Port:465
-            // User Name:info@onxcy.com
-            // Connection:SSL/TLS
 
         });
         let html = `<!DOCTYPE html>
@@ -137,10 +133,10 @@ router.get("/", async (req, res) => {
 
         var mailOptions = {
             from: 'Onxcy HR <hr@onxcy.com>',
-            to: ['anshudivvy@gmail.com', 'garg2509@gmail.com'],
+            to: ['anshudivvy@gmail.com'],
             subject: 'subject',
             html: html,
-            sender: "anshu <hr@onxcy.com>",
+            sender: "Onxcy PVT. LTD. <hr@onxcy.com>",
             replyTo: 'Onxcy <hr@onxcy.com>',
         };
 
