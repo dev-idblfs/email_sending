@@ -1,10 +1,6 @@
 var express = require("express"),
     router = express.Router();
-var ejs = require('ejs');
 var nodemailer = require('nodemailer');
-var path = require('path')
-const { google } = require("googleapis");
-const OAuth2 = google.auth.OAuth2;
 
 
 router.post("/sendmail", async (req, res) => {
@@ -13,9 +9,9 @@ router.post("/sendmail", async (req, res) => {
     var subject = '';
     var body_html = '';
     var response = {};
-    var sender = "Developer Idblfs";
-    var replyTo = "";
-    var inReplyTo = "developer.idblfs@gmail.com";
+    var sender = "Onxcy HR <hr@onxcy.com>";
+    var replyTo = "Onxcy HR <hr@onxcy.com>";
+    var inReplyTo = "Onxcy HR <hr@onxcy.com>";
     if (Object.keys(req.body).length > 0) {
         try {
             if (req.body.from) {
@@ -31,8 +27,6 @@ router.post("/sendmail", async (req, res) => {
                 body_html = req.body.body_html
             }
             
-            const accessToken = oauth2Client.getAccessToken()
-
             var transporter = nodemailer.createTransport({
                 service: 'Godaddy',
                 secureConnection: true,
