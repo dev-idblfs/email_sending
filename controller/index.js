@@ -9,9 +9,9 @@ router.post("/sendmail", async (req, res) => {
     var subject = '';
     var body_html = '';
     var response = {};
-    var sender = "Onxcy HR <hr@onxcy.com>";
-    var replyTo = "Onxcy HR <hr@onxcy.com>";
-    var inReplyTo = "Onxcy HR <hr@onxcy.com>";
+    var sender = "";
+    var replyTo = "";
+    var inReplyTo = "";
     if (Object.keys(req.body).length > 0) {
         try {
             if (req.body.from) {
