@@ -31,7 +31,7 @@ router.post("/sendmail", async (req, res) => {
                 service: 'Godaddy',
                 secureConnection: true,
                 auth: {
-                    user: "hr@onxcy.com",
+                    user: "info@onxcy.com",
                     pass: "GoalWebsite@2020."
                 }
             });
