@@ -33,7 +33,7 @@ global.domain = "";
 
 var port = process.env.PORT || 3001;
 
-const whitelist = ["https://www.onxcy.com"];
+const whitelist = ["http://localhost:8081", "https://www.onxcy.com"];
 
 const corsOptionsDelegate = (req, callback) => {
   var corsOptions;
