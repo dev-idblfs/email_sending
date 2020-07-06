@@ -37,6 +37,7 @@ const whitelist = ["http://localhost:8081", "https://www.onxcy.com"];
 
 const corsOptionsDelegate = (req, callback) => {
   var corsOptions;
+  console.log(req.headers);
   if (whitelist.indexOf(req.header("Origin")) !== -1) {
     corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
   } else {
