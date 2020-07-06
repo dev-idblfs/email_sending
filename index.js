@@ -1,59 +1,74 @@
-
-const express = require('express')
-const path = require('path')
-const bodyParser = require("body-parser")
-const cors = require("cors")
-const cookieParse = require('cookie-parser')
+const express = require("express");
+const path = require("path");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const cookieParse = require("cookie-parser");
 // init express
-var app = module.exports = express()
+var app = (module.exports = express());
 
 // server static files
-app.use('/public', express.static(path.join(__dirname, 'public')))
+app.use("/public", express.static(path.join(__dirname, "public")));
 
-app.set('view engine', 'ejs')
+app.set("view engine", "ejs");
 
-app.use('views', express.static(path.join(__dirname, 'views')))
+app.use("views", express.static(path.join(__dirname, "views")));
 
 // allow cross origin
-app.use(cors());
+// app.use(cors());
 
 // app.use(formidable());
 
 // parse request bodies (req.body)
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }));
 
 // parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // parse applilcation/json
 app.use(bodyParser.json());
 
-app.use(cookieParse())
+app.use(cookieParse());
 
-global.domain = '';
+global.domain = "";
 
 var port = process.env.PORT || 3001;
 
-app.use((req, res, next) => {
-    // res.header("Access-Control-Allow-Origin", "*");
-    // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    domain = req.hostname;
-    console.log(`https://${domain}`);
-    next();
+const whitelist = ["https://www.onxcy.com"];
+
+const corsOptionsDelegate = (req, callback) => {
+  var corsOptions;
+  if (whitelist.indexOf(req.header("Origin")) !== -1) {
+    corsOptions = { origin: true }; // reflect (enable) the requested origin in the CORS response
+  } else {
+    corsOptions = { origin: false }; // disable CORS for this request
+    throw { massage: "You are not authrised" };
+  }
+  callback(null, corsOptions); // callback expects two parameters: error and options
+};
+
+app.all("*", cors(corsOptionsDelegate), function (req, res, next) {
+  next();
 });
 
-app.use(require('./controller/index'));
+app.use((req, res, next) => {
+  // res.header("Access-Control-Allow-Origin", "*");
+  // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  domain = req.hostname;
+  console.log(`https://${domain}`);
+  next();
+});
+
+app.use(require("./controller/index"));
 
 app.use((err, req, res, next) => {
-
-    console.log(err);
-    // res.status(500).render('error');
-    res.send(500)
-})
+  console.log(err);
+  // res.status(500).render('error');
+  res.json({ code: 500, err: err });
+});
 
 app.use((req, res, next) => {
-    // res.status(404).render('error');
-    res.status(404).send("srroy Wrong URl");
-})
+  // res.status(404).render('error');
+  res.status(404).send("srroy Wrong URl");
+});
 
-app.listen(port, () => console.log(`Example app listening at http://${port}`))
+app.listen(port, () => console.log(`Example app listening at http://${port}`));
