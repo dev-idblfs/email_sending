@@ -126,15 +126,6 @@ router.post("/sendmail", async (req, res) => {
         body_html = req.body.body_html;
       }
 
-      var transporter = nodemailer.createTransport({
-        service: "Godaddy",
-        secureConnection: true,
-        auth: {
-          user: "info@onxcy.com",
-          pass: "GoalWebsite@2020.",
-        },
-      });
-
       var mailOptions = {
         from: from,
         to: to,
@@ -145,21 +136,23 @@ router.post("/sendmail", async (req, res) => {
         inReplyTo: inReplyTo,
       };
 
-      transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-          console.log("send mail error", error);
-          response = error;
-          res.send(response);
-        } else {
-          console.log("Email sent: " + info.response);
-          response = info;
-          res.send(response);
+      
+      var result = {};
+      result = await info(mailOptions);
+      if (result.status == 550) {
+        result = {};
+        result = await hr(mailOptions);
+        if (result.status == 550) {
+          result = {};
+          result = await gmail(mailOptions);
         }
-      });
+      }
+      console.log("MAIL SENT", result);
+      res.json(result);
     } catch (error) {
       console.log("catch", error);
       response = error;
-      res.send(response);
+      res.json(response);
     }
   } else {
     res.send("we dont get any informations");
